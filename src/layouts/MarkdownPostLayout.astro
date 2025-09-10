@@ -1,9 +1,10 @@
 ---
+import { getTagPath } from '../utilities/routing';
 import BaseLayout from './BaseLayout.astro';
 const { frontmatter } = Astro.props;
 ---
 <BaseLayout pageTitle={frontmatter.title}>
-    <p>Published on: {frontmatter.pubDate.toString().slice(0, 10)}</p>
+    <p>Published on: {frontmatter.pubDate.toLocaleDateString()}</p>
     <p><em>{frontmatter.description}</em></p>
 
     <p>Written by {frontmatter.author}</p>
@@ -12,7 +13,7 @@ const { frontmatter } = Astro.props;
     
     <div class="tags">
         {(frontmatter.tags ?? []).map((tag: string) => (
-        <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
+        <p class="tag"><a href={getTagPath(tag)}>{tag}</a></p>
         ))}
     </div>
 
